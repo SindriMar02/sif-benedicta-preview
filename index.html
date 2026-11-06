@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-v2>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,13 +10,15 @@
   <meta name="description" content="Luxury bags, clutches, clothes and accessories designed in Iceland by Halldóra Sif.">
   <link rel="icon" href="assets/favicon.png" type="image/png">
   <link rel="apple-touch-icon" href="assets/favicon.png">
-  <script>/* focus-guard (_tools/focus-guard) */(function(){var root=document.documentElement;function set(v){if(root.getAttribute('data-input')!==v)root.setAttribute('data-input',v);}addEventListener('pointerdown',function(){set('pointer');},true);addEventListener('keydown',function(e){if(e.key==='Shift'||e.key==='Control'||e.key==='Alt'||e.key==='Meta')return;set('key');},true);})();</script>
+  <script>document.documentElement.classList.add('js');/* focus-guard (_tools/focus-guard) */(function(){var root=document.documentElement;function set(v){if(root.getAttribute('data-input')!==v)root.setAttribute('data-input',v);}addEventListener('pointerdown',function(){set('pointer');},true);addEventListener('keydown',function(e){if(e.key==='Shift'||e.key==='Control'||e.key==='Alt'||e.key==='Meta')return;set('key');},true);})();</script>
   <script>try{var r=matchMedia('(prefers-reduced-motion: reduce)').matches,v=sessionStorage.getItem('sbd-intro')==='1';if(!r&&!v&&!location.hash){document.documentElement.classList.add('sbd-intro');history.scrollRestoration='manual';}}catch(e){}</script>
   <link rel="preload" href="assets/fonts/clash-display-medium.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/albert-sans-regular.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="assets/vendor/lenis.css">
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="sections.css">
   <script type="module" src="app.js"></script>
+  <script type="module" src="shop.js"></script>
 </head>
 <body>
   <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
@@ -31,17 +33,21 @@
   <!-- Mobile chrome standard: constant glass bar + sticky ink awning (hidden on desktop, where the stage carries the nav). -->
   <header class="sbd-bar">
     <a class="sbd-bar-mark" translate="no" href="#top" aria-label="Sif Benedicta, back to top"><svg viewBox="0 0 2108 174" aria-hidden="true"><use href="#sb-word"/></svg></a>
-    <button class="sbd-burger" type="button" aria-expanded="false" aria-controls="sbd-menu"><span></span><span></span><span class="sr-only">Menu</span></button>
+    <div class="sbd-bar-end">
+      <a class="sbd-ico" href="https://sifbenedicta.com/search" aria-label="Search the shop"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6"/><path d="M15 15l5 5"/></svg></a>
+      <a class="sbd-ico" href="https://sifbenedicta.com/cart" aria-label="Bag"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1 12H6L5 8z"/><path d="M9 8V6a3 3 0 016 0v2"/></svg></a>
+      <button class="sbd-burger" type="button" aria-expanded="false" aria-controls="sbd-menu"><span></span><span></span><span class="sr-only">Menu</span></button>
+    </div>
   </header>
   <nav class="sbd-menu" id="sbd-menu" aria-label="Main" hidden tabindex="-1">
-    <a href="#shop">Selection</a><a href="#about">About</a><a href="#contact">Contact</a>
-    <p>+354 546 1500<br>info@sifbenedicta.com</p>
+    <a href="#shop">Shop</a><a href="#collections">Collections</a><a href="#lookbook">Lookbook</a><a href="#about">About</a><a href="#contact">Contact</a>
+    <p>+354&nbsp;546&nbsp;1500<br>info@sifbenedicta.com</p>
   </nav>
   <div class="sbd-awning" aria-hidden="true"></div>
   <!-- Desktop header: constant, never hides. Sits exactly where Kove's stage nav sits; difference blending keeps it legible on light and dark. -->
   <header class="sbd-head" id="sbd-head">
     <a class="head-name" href="#top" translate="no" aria-label="Sif Benedicta, back to top"><span id="head-name"><svg viewBox="0 0 2108 174" aria-hidden="true"><use href="#sb-word"/></svg></span></a>
-    <nav aria-label="Main"><a href="#shop" data-sec="shop">SELECTION <i class="plus" aria-hidden="true">+</i></a><a href="#about" data-sec="about">ABOUT <i class="plus" aria-hidden="true">+</i></a><a href="#contact" data-sec="contact">CONTACT <i class="plus" aria-hidden="true">+</i></a></nav>
+    <nav aria-label="Main"><a href="#shop" data-sec="shop">SHOP</a><a href="#collections" data-sec="collections">COLLECTIONS</a><a href="#lookbook" data-sec="lookbook">LOOKBOOK</a><a href="#about" data-sec="about">ABOUT</a><a href="#contact" data-sec="contact">CONTACT</a><a class="head-ico" href="https://sifbenedicta.com/search" aria-label="Search the shop"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6"/><path d="M15 15l5 5"/></svg></a><a class="head-ico" href="https://sifbenedicta.com/cart" aria-label="Bag"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1 12H6L5 8z"/><path d="M9 8V6a3 3 0 016 0v2"/></svg></a></nav>
   </header>
 
   <main id="top">
@@ -54,11 +60,12 @@
               <a class="brand-link" href="https://sifbenedicta.com/"><span class="crosshair" aria-hidden="true"></span> THE WEBSHOP <i class="plus" aria-hidden="true">+</i></a>
             </nav>
             <h1 class="lockup hero-wordmark" id="hero-wordmark" translate="no"><svg viewBox="0 0 2108 1234" role="img" aria-label="Sif Benedicta"><use href="#sb-lockup"/></svg></h1>
+            <div class="hero-cta" id="hero-cta"><div class="hero-cta-in" id="hero-cta-in"><a class="btn" href="#shop">SHOP NOW</a><a class="btn btn-ghost" href="#collections">COLLECTIONS</a></div></div>
             <div class="scroll-cue" id="scroll-cue" aria-hidden="true"><div class="scroll-cue-in" id="scroll-cue-in"><span>SCROLL DOWN</span><span class="scroll-cue-line"></span></div></div>
             <div class="hero-footer" id="hero-footer">
-              <span>DESIGNED IN ICELAND +</span>
+              <a href="#shop">SHOP THE SELECTION <i class="plus" aria-hidden="true">+</i></a>
               <p>BAGS, CLUTCHES, CLOTHES<br>AND ACCESSORIES</p>
-              <span>4 COLLECTIONS</span>
+              <a href="#collections">4 COLLECTIONS <i class="plus" aria-hidden="true">+</i></a>
             </div>
           </section>
           <div class="gallery" id="gallery" aria-label="Benedicta’s Room, Sketchbook and Diamond">
@@ -88,10 +95,10 @@
             <div class="collection-top"><h2 id="collection-title">ROOM</h2><p>THE DEBUT COLLECTION<br>60S POP ART, ART DECO<br>AND ART NOUVEAU</p></div>
             <div class="landscape-frame reveal-frame"><img decoding="async" src="assets/img/spread.jpg" alt="Three models in a turbine hall, in blue and violet harlequin prints and a plum pinstriped suit" width="2400" height="1600"></div>
             <div class="image-captions"><span>CAMPAIGN, TURBINE HALL</span><a href="#about">ABOUT HALLDÓRA SIF <i class="plus" aria-hidden="true">+</i></a></div>
-            <div class="collection-bottom"><span class="year" id="year">/02</span><span class="spring" id="since" aria-label="Sketchbook">SKETCHBOOK</span><span class="outerwear">THE SECOND COLLECTION<br>20S GLAMOUR, ROMANTIC 70S CHIC</span><a class="shop-strip" href="https://sifbenedicta.com/collections/benedicta-s-sketch-book"><span id="shop-copy">SHOP SKETCHBOOK / SHOP SKETCHBOOK / SHOP SKETCHBOOK / SHOP SKETCHBOOK</span><span class="crosshair" aria-hidden="true"></span></a></div>
+            <div class="collection-bottom"><span class="year" id="year">/02</span><span class="spring" id="since" aria-label="Sketchbook">SKETCHBOOK</span><span class="outerwear">THE SECOND COLLECTION<br>20S GLAMOUR, ROMANTIC 70S CHIC</span><a class="shop-strip" href="https://sifbenedicta.com/collections/benedicta-s-sketch-book" aria-label="Shop Sketchbook"><span class="mq-wrap" aria-hidden="true"><span class="mq"><span>SHOP SKETCHBOOK /&nbsp;SHOP SKETCHBOOK /&nbsp;SHOP SKETCHBOOK /&nbsp;</span><span>SHOP SKETCHBOOK /&nbsp;SHOP SKETCHBOOK /&nbsp;SHOP SKETCHBOOK /&nbsp;</span></span></span><span class="crosshair" aria-hidden="true"></span></a></div>
           </section>
           <section class="portrait" aria-label="A plum suit">
-            <div class="portrait-strip" aria-hidden="true"><span id="portrait-copy">BAGS / CLUTCHES / CLOTHES / ACCESSORIES / BAGS / CLUTCHES /</span></div>
+            <div class="portrait-strip" aria-hidden="true"><span class="mq"><span>BAGS / CLUTCHES / CLOTHES / ACCESSORIES /&nbsp;BAGS / CLUTCHES / CLOTHES / ACCESSORIES /&nbsp;BAGS / CLUTCHES / CLOTHES / ACCESSORIES /&nbsp;</span><span>BAGS / CLUTCHES / CLOTHES / ACCESSORIES /&nbsp;BAGS / CLUTCHES / CLOTHES / ACCESSORIES /&nbsp;BAGS / CLUTCHES / CLOTHES / ACCESSORIES /&nbsp;</span></span></div>
             <div class="portrait-frame"><img decoding="async" id="portrait-img" src="assets/img/tall.jpg" alt="Model in a plum double-breasted blazer and bralette with wide trousers and a chain belt" width="1300" height="1949"></div>
           </section>
         </div>
@@ -109,62 +116,144 @@
       </div>
     </section>
 
-    <section class="about" id="about" aria-labelledby="about-title">
-      <figure class="about-photo reveal-frame" data-curtain><img decoding="async" src="assets/img/about.jpg" alt="Model in a violet harlequin silk dress and scrunchie beside a white turbine" width="2200" height="1467" loading="lazy"><span class="curtain" aria-hidden="true"></span></figure>
-      <div class="about-copy">
-        <p class="label">ABOUT +</p>
-        <h2 id="about-title"><span class="rise">A fusion of international</span> <span class="rise">experience and Icelandic</span> <span class="rise">sensibilities</span></h2>
-        <p>The talented Icelandic designer Halldóra Sif brings forth a fusion of international experience and Icelandic sensibilities. From her intern days at Olympia-Le-Tan in the heart of Paris, to her stint with the iconic Alexander McQueen in the vibrant streets of London, her journey has been a whirlwind of creativity and exploration.</p>
-        <p>Benedicta’s Room, the debut collection, draws inspiration from the vibrant colors and bold forms of 60’s pop art, as well as the elegance of Art Deco and Art Nouveau. Benedicta’s Sketchbook, the second collection, is inspired by the intricate designs of Art Deco jewelry and wallpaper, vintage book covers, a fantasy of 20’s glamour and romantic 70’s chic.</p>
-        <dl class="facts"><div><dt>Designer</dt><dd>Halldóra Sif</dd></div><div><dt>Production</dt><dd>Italy and Lebanon</dd></div><div><dt>Collections</dt><dd>Room, Sketchbook, Diamond, Timetravel</dd></div></dl>
+    <section class="trust" aria-label="Delivery, returns and payment">
+      <ul>
+        <li data-reveal style="--i:0"><b>Free home delivery</b><span>on all orders</span></li>
+        <li data-reveal style="--i:1"><b>14 days to return</b><span>refund includes delivery costs</span></li>
+        <li data-reveal style="--i:2"><b>Card and PayPal</b><span>payments handled by Borgun</span></li>
+        <li data-reveal style="--i:3"><b>Prices in euros</b><span>VAT included</span></li>
+      </ul>
+    </section>
+
+    <section class="cats" id="categories" aria-labelledby="cats-title">
+      <div class="sec-head" data-reveal>
+        <div><p class="label">01 / SHOP BY CATEGORY</p><h2 id="cats-title">Start with what you need</h2></div>
+        <a class="sec-link" href="https://sifbenedicta.com/collections/all">SEE EVERYTHING <i class="plus" aria-hidden="true">+</i></a>
+      </div>
+      <div class="cat-grid">
+      <a class="cat" href="https://sifbenedicta.com/collections/dresses" data-reveal style="--i:0"><span class="cat-frame"><span class="cat-zoom"><img decoding="async" src="assets/img/cat-dresses.jpg" alt="" width="1000" height="1250" loading="lazy"></span></span><span class="cat-cap"><span class="cat-name">Dresses</span><span class="cat-go">SHOP <i class="plus" aria-hidden="true">+</i></span></span></a>
+      <a class="cat" href="https://sifbenedicta.com/collections/suits" data-reveal style="--i:1"><span class="cat-frame"><span class="cat-zoom"><img decoding="async" src="assets/img/cat-suits.jpg" alt="" width="1000" height="1250" loading="lazy"></span></span><span class="cat-cap"><span class="cat-name">Suits</span><span class="cat-go">SHOP <i class="plus" aria-hidden="true">+</i></span></span></a>
+      <a class="cat" href="https://sifbenedicta.com/collections/ready-to-wear" data-reveal style="--i:2"><span class="cat-frame"><span class="cat-zoom"><img decoding="async" src="assets/img/cat-clothes.jpg" alt="" width="1000" height="1250" loading="lazy"></span></span><span class="cat-cap"><span class="cat-name">Ready to wear</span><span class="cat-go">SHOP <i class="plus" aria-hidden="true">+</i></span></span></a>
+      <a class="cat" href="https://sifbenedicta.com/collections/bags" data-reveal style="--i:3"><span class="cat-frame"><span class="cat-zoom"><img decoding="async" src="assets/img/cat-bags.jpg" alt="" width="1000" height="1250" loading="lazy"></span></span><span class="cat-cap"><span class="cat-name">Bags</span><span class="cat-go">SHOP <i class="plus" aria-hidden="true">+</i></span></span></a>
+      <a class="cat" href="https://sifbenedicta.com/collections/accessories" data-reveal style="--i:4"><span class="cat-frame"><span class="cat-zoom"><img decoding="async" src="assets/img/cat-accessories.jpg" alt="" width="1000" height="1250" loading="lazy"></span></span><span class="cat-cap"><span class="cat-name">Accessories</span><span class="cat-go">SHOP <i class="plus" aria-hidden="true">+</i></span></span></a>
       </div>
     </section>
 
     <section class="shop" id="shop" aria-labelledby="shop-title">
-      <div class="shop-head">
-        <div><p class="label">SELECTION <i class="plus" aria-hidden="true">+</i></p>
-        <h2 id="shop-title"><span class="rise">A small sample of</span> <span class="rise">the current selection</span></h2></div>
-        <p>Curator of style, architect of individuality, and storyteller of fashion.</p>
+      <div class="sec-head" data-reveal>
+        <div><p class="label">02 / THE SELECTION</p><h2 id="shop-title">A small sample of the current selection</h2></div>
+        <p class="sec-note">In stock now. Euro prices, VAT included. Every piece opens in their shop.</p>
       </div>
-      <ul class="pieces">
-        <li data-curtain><a href="https://sifbenedicta.com/products/suit-sailor-blazer-purple-copy"><span class="pc-frame"><span class="pc-zoom"><img decoding="async" src="assets/img/p-blazer.jpg" alt="" width="640" height="800" loading="lazy"></span><span class="curtain" aria-hidden="true"></span></span><span class="pc-caption"><span class="pc-name">Suit Sailor Blazer, purple</span><span class="pc-price">€985</span><span class="pc-meta">Suit</span><span class="pc-view" aria-hidden="true">VIEW <i class="plus">+</i></span></span></a></li>
-        <li data-curtain><a href="https://sifbenedicta.com/products/denim-jumpsuit"><span class="pc-frame"><span class="pc-zoom"><img decoding="async" src="assets/img/p-jumpsuit.jpg" alt="" width="640" height="800" loading="lazy"></span><span class="curtain" aria-hidden="true"></span></span><span class="pc-caption"><span class="pc-name">Denim Jumpsuit, pink</span><span class="pc-price">€549</span><span class="pc-meta">Jumpsuit</span><span class="pc-view" aria-hidden="true">VIEW <i class="plus">+</i></span></span></a></li>
-        <li data-curtain><a href="https://sifbenedicta.com/products/lady-shirt-dress-silk-dress-copy"><span class="pc-frame"><span class="pc-zoom"><img decoding="async" src="assets/img/p-dress.jpg" alt="" width="800" height="1000" loading="lazy"></span><span class="curtain" aria-hidden="true"></span></span><span class="pc-caption"><span class="pc-name">Lady Shirt Dress, black and pink feather</span><span class="pc-price">€685</span><span class="pc-meta">Dress</span><span class="pc-view" aria-hidden="true">VIEW <i class="plus">+</i></span></span></a></li>
-        <li data-curtain><a href="https://sifbenedicta.com/products/silk-lurex-shirt"><span class="pc-frame"><span class="pc-zoom"><img decoding="async" src="assets/img/p-lurex.jpg" alt="" width="800" height="1000" loading="lazy"></span><span class="curtain" aria-hidden="true"></span></span><span class="pc-caption"><span class="pc-name">Silk and Lurex Shirt</span><span class="pc-price">€472</span><span class="pc-meta">Shirt</span><span class="pc-view" aria-hidden="true">VIEW <i class="plus">+</i></span></span></a></li>
-        <li data-curtain><a href="https://sifbenedicta.com/products/perfume-handbag-pink-gold-black"><span class="pc-frame"><span class="pc-zoom"><img decoding="async" src="assets/img/p-perfume.jpg" alt="" width="640" height="800" loading="lazy"></span><span class="curtain" aria-hidden="true"></span></span><span class="pc-caption"><span class="pc-name">Perfume Handbag, pink and gold</span><span class="pc-price">€598</span><span class="pc-meta">Handbag</span><span class="pc-view" aria-hidden="true">VIEW <i class="plus">+</i></span></span></a></li>
-        <li data-curtain><a href="https://sifbenedicta.com/products/swarovski-bag"><span class="pc-frame"><span class="pc-zoom"><img decoding="async" src="assets/img/p-crystal.jpg" alt="" width="1100" height="1375" loading="lazy"></span><span class="curtain" aria-hidden="true"></span></span><span class="pc-caption"><span class="pc-name">Swarovski Bag</span><span class="pc-price">€412</span><span class="pc-meta">Bag</span><span class="pc-view" aria-hidden="true">VIEW <i class="plus">+</i></span></span></a></li>
-        <li data-curtain><a href="https://sifbenedicta.com/products/sb-gold-chain"><span class="pc-frame"><span class="pc-zoom"><img decoding="async" src="assets/img/p-chain.jpg" alt="" width="640" height="800" loading="lazy"></span><span class="curtain" aria-hidden="true"></span></span><span class="pc-caption"><span class="pc-name">SB Gold Chain Necklace</span><span class="pc-price">€326</span><span class="pc-meta">Necklace</span><span class="pc-view" aria-hidden="true">VIEW <i class="plus">+</i></span></span></a></li>
-        <li data-curtain><a href="https://sifbenedicta.com/products/blac-clutch"><span class="pc-frame"><span class="pc-zoom"><img decoding="async" src="assets/img/p-clutch.jpg" alt="" width="640" height="800" loading="lazy"></span><span class="curtain" aria-hidden="true"></span></span><span class="pc-caption"><span class="pc-name">Black Clutch</span><span class="pc-price">€678</span><span class="pc-meta">Clutch</span><span class="pc-view" aria-hidden="true">VIEW <i class="plus">+</i></span></span></a></li>
+      <div class="chips" role="group" aria-label="Filter the selection"><button class="chip" type="button" data-f="all" aria-pressed="true">All <sup>16</sup></button><button class="chip" type="button" data-f="clothes" aria-pressed="false">Clothes <sup>4</sup></button><button class="chip" type="button" data-f="dresses" aria-pressed="false">Dresses <sup>2</sup></button><button class="chip" type="button" data-f="bags" aria-pressed="false">Bags <sup>5</sup></button><button class="chip" type="button" data-f="accessories" aria-pressed="false">Accessories <sup>5</sup></button></div>
+      <p class="sr-only" id="shop-live" role="status" aria-live="polite"></p>
+      <ul class="pieces" id="pieces">
+        <li data-cat="clothes"><a href="https://sifbenedicta.com/products/suit-sailor-blazer-purple-copy"><span class="pc-frame"><span class="pc-zoom"><img decoding="async" src="assets/img/p-blazer.jpg" alt="" width="640" height="800" loading="lazy"></span></span><span class="pc-caption"><span class="pc-name">Suit Sailor Blazer, purple</span><span class="pc-price">€985</span><span class="pc-meta">Suit</span><span class="pc-view" aria-hidden="true">VIEW <i class="plus" aria-hidden="true">+</i></span></span></a></li>
+        <li data-cat="dresses"><a href="https://sifbenedicta.com/products/lady-shirt-dress-silk-dress-copy"><span class="pc-frame"><span class="pc-zoom"><img decoding="async" src="assets/img/p-dress.jpg" alt="" width="800" height="1000" loading="lazy"></span></span><span class="pc-caption"><span class="pc-name">Lady Shirt Dress, black and pink feather</span><span class="pc-price">€685</span><span class="pc-meta">Dress</span><span class="pc-view" aria-hidden="true">VIEW <i class="plus" aria-hidden="true">+</i></span></span></a></li>
+        <li data-cat="bags"><a href="https://sifbenedicta.com/products/perfume-handbag-pink-gold-black"><span class="pc-frame"><span class="pc-zoom"><img decoding="async" src="assets/img/p-perfume.jpg" alt="" width="640" height="800" loading="lazy"></span></span><span class="pc-caption"><span class="pc-name">Perfume Handbag, pink and gold</span><span class="pc-price">€598</span><span class="pc-meta">Handbag</span><span class="pc-view" aria-hidden="true">VIEW <i class="plus" aria-hidden="true">+</i></span></span></a></li>
+        <li data-cat="clothes"><a href="https://sifbenedicta.com/products/denim-jumpsuit"><span class="pc-frame"><span class="pc-zoom"><img decoding="async" src="assets/img/p-jumpsuit.jpg" alt="" width="640" height="800" loading="lazy"></span></span><span class="pc-caption"><span class="pc-name">Denim Jumpsuit, pink</span><span class="pc-price">€549</span><span class="pc-meta">Jumpsuit</span><span class="pc-view" aria-hidden="true">VIEW <i class="plus" aria-hidden="true">+</i></span></span></a></li>
+        <li data-cat="accessories"><a href="https://sifbenedicta.com/products/sb-gold-chain"><span class="pc-frame"><span class="pc-zoom"><img decoding="async" src="assets/img/p-chain.jpg" alt="" width="640" height="800" loading="lazy"></span></span><span class="pc-caption"><span class="pc-name">SB Gold Chain Necklace</span><span class="pc-price">€326</span><span class="pc-meta">Necklace</span><span class="pc-view" aria-hidden="true">VIEW <i class="plus" aria-hidden="true">+</i></span></span></a></li>
+        <li data-cat="bags"><a href="https://sifbenedicta.com/products/blac-clutch"><span class="pc-frame"><span class="pc-zoom"><img decoding="async" src="assets/img/p-clutch.jpg" alt="" width="640" height="800" loading="lazy"></span></span><span class="pc-caption"><span class="pc-name">Black Clutch</span><span class="pc-price">€678</span><span class="pc-meta">Clutch</span><span class="pc-view" aria-hidden="true">VIEW <i class="plus" aria-hidden="true">+</i></span></span></a></li>
+        <li data-cat="clothes"><a href="https://sifbenedicta.com/products/silk-lurex-shirt"><span class="pc-frame"><span class="pc-zoom"><img decoding="async" src="assets/img/p-lurex.jpg" alt="" width="800" height="1000" loading="lazy"></span></span><span class="pc-caption"><span class="pc-name">Silk and Lurex Shirt</span><span class="pc-price">€472</span><span class="pc-meta">Shirt</span><span class="pc-view" aria-hidden="true">VIEW <i class="plus" aria-hidden="true">+</i></span></span></a></li>
+        <li data-cat="accessories"><a href="https://sifbenedicta.com/products/diamond-belt"><span class="pc-frame"><span class="pc-zoom"><img decoding="async" src="assets/img/p-belt.jpg" alt="" width="640" height="800" loading="lazy"></span></span><span class="pc-caption"><span class="pc-name">Diamond Chain Belt</span><span class="pc-price">€259</span><span class="pc-meta">Belt</span><span class="pc-view" aria-hidden="true">VIEW <i class="plus" aria-hidden="true">+</i></span></span></a></li>
+        <li data-cat="bags"><a href="https://sifbenedicta.com/products/swarovski-bag"><span class="pc-frame"><span class="pc-zoom"><img decoding="async" src="assets/img/p-crystal.jpg" alt="" width="1100" height="1375" loading="lazy"></span></span><span class="pc-caption"><span class="pc-name">Swarovski Bag</span><span class="pc-price">€412</span><span class="pc-meta">Bag</span><span class="pc-view" aria-hidden="true">VIEW <i class="plus" aria-hidden="true">+</i></span></span></a></li>
+        <li data-cat="dresses"><a href="https://sifbenedicta.com/products/checkered-dress"><span class="pc-frame"><span class="pc-zoom"><img decoding="async" src="assets/img/p-checkered.jpg" alt="" width="640" height="800" loading="lazy"></span></span><span class="pc-caption"><span class="pc-name">Checkered Dress</span><span class="pc-price">€622</span><span class="pc-meta">Dress</span><span class="pc-view" aria-hidden="true">VIEW <i class="plus" aria-hidden="true">+</i></span></span></a></li>
+        <li data-cat="clothes"><a href="https://sifbenedicta.com/products/pink-denim-blazer"><span class="pc-frame"><span class="pc-zoom"><img decoding="async" src="assets/img/p-pinkblazer.jpg" alt="" width="640" height="800" loading="lazy"></span></span><span class="pc-caption"><span class="pc-name">Pink Denim Blazer</span><span class="pc-price">€532</span><span class="pc-meta">Blazer</span><span class="pc-view" aria-hidden="true">VIEW <i class="plus" aria-hidden="true">+</i></span></span></a></li>
+        <li data-cat="accessories"><a href="https://sifbenedicta.com/products/box-necklace-pink-heart-flower-print"><span class="pc-frame"><span class="pc-zoom"><img decoding="async" src="assets/img/p-boxneck.jpg" alt="" width="640" height="800" loading="lazy"></span></span><span class="pc-caption"><span class="pc-name">Box Necklace, pink heart flower print</span><span class="pc-price">€198</span><span class="pc-meta">Necklace</span><span class="pc-view" aria-hidden="true">VIEW <i class="plus" aria-hidden="true">+</i></span></span></a></li>
+        <li data-cat="bags"><a href="https://sifbenedicta.com/products/box-bag"><span class="pc-frame"><span class="pc-zoom"><img decoding="async" src="assets/img/p-boxbag.jpg" alt="" width="640" height="800" loading="lazy"></span></span><span class="pc-caption"><span class="pc-name">Box Bag</span><span class="pc-price">€1049</span><span class="pc-meta">Handbag</span><span class="pc-view" aria-hidden="true">VIEW <i class="plus" aria-hidden="true">+</i></span></span></a></li>
+        <li data-cat="accessories"><a href="https://sifbenedicta.com/products/sb-tie-purple-jewlery"><span class="pc-frame"><span class="pc-zoom"><img decoding="async" src="assets/img/p-tie.jpg" alt="" width="1000" height="1250" loading="lazy"></span></span><span class="pc-caption"><span class="pc-name">SB Tie, purple</span><span class="pc-price">€129</span><span class="pc-meta">Tie</span><span class="pc-view" aria-hidden="true">VIEW <i class="plus" aria-hidden="true">+</i></span></span></a></li>
+        <li data-cat="bags"><a href="https://sifbenedicta.com/products/red-flower-clutch-limited"><span class="pc-frame"><span class="pc-zoom"><img decoding="async" src="assets/img/p-redclutch.jpg" alt="" width="640" height="800" loading="lazy"></span></span><span class="pc-caption"><span class="pc-name">Red Flower Clutch, limited</span><span class="pc-price">€1368</span><span class="pc-meta">Clutch</span><span class="pc-view" aria-hidden="true">VIEW <i class="plus" aria-hidden="true">+</i></span></span></a></li>
+        <li data-cat="accessories"><a href="https://sifbenedicta.com/products/silk-scrunchies-purple-jewlery"><span class="pc-frame"><span class="pc-zoom"><img decoding="async" src="assets/img/p-scrunchie.jpg" alt="" width="640" height="800" loading="lazy"></span></span><span class="pc-caption"><span class="pc-name">Silk Scrunchies, purple</span><span class="pc-price">€26</span><span class="pc-meta">Scrunchie</span><span class="pc-view" aria-hidden="true">VIEW <i class="plus" aria-hidden="true">+</i></span></span></a></li>
       </ul>
       <a class="shop-all" href="https://sifbenedicta.com/">THE WHOLE SHOP <i class="plus" aria-hidden="true">+</i></a>
     </section>
 
+    <section class="colls" id="collections" aria-labelledby="colls-title">
+      <div class="sec-head" data-reveal>
+        <div><p class="label">03 / THE COLLECTIONS</p><h2 id="colls-title">Four collections, four moods</h2></div>
+        <a class="sec-link" href="https://sifbenedicta.com/collections/benedicta-s-timetravel">SHOP THE NEWEST <i class="plus" aria-hidden="true">+</i></a>
+      </div>
+      <ol class="coll-list">
+        <li data-reveal style="--i:0"><a href="https://sifbenedicta.com/collections/frontpage"><span class="coll-no">01</span><span class="coll-name">Room</span><span class="coll-desc">The debut collection. 60s pop art, Art Deco and Art Nouveau.</span><span class="coll-thumb"><img decoding="async" src="assets/img/col-room.jpg" alt="" width="640" height="640" loading="lazy"></span><span class="coll-go">SHOP <i class="plus" aria-hidden="true">+</i></span></a></li>
+        <li data-reveal style="--i:1"><a href="https://sifbenedicta.com/collections/benedicta-s-sketch-book"><span class="coll-no">02</span><span class="coll-name">Sketchbook</span><span class="coll-desc">The second collection. Art Deco jewellery and wallpaper, vintage book covers, 20s glamour and romantic 70s chic.</span><span class="coll-thumb"><img decoding="async" src="assets/img/col-sketchbook.jpg" alt="" width="640" height="640" loading="lazy"></span><span class="coll-go">SHOP <i class="plus" aria-hidden="true">+</i></span></a></li>
+        <li data-reveal style="--i:2"><a href="https://sifbenedicta.com/collections/diamond-collection"><span class="coll-no">03</span><span class="coll-name">Diamond</span><span class="coll-desc">Belts, shirts and bags.</span><span class="coll-thumb"><img decoding="async" src="assets/img/col-diamond.jpg" alt="" width="640" height="640" loading="lazy"></span><span class="coll-go">SHOP <i class="plus" aria-hidden="true">+</i></span></a></li>
+        <li data-reveal style="--i:3"><a href="https://sifbenedicta.com/collections/benedicta-s-timetravel"><span class="coll-no">04</span><span class="coll-name">Timetravel</span><span class="coll-desc">The largest line, from berets and chains to dresses.</span><span class="coll-thumb"><img decoding="async" src="assets/img/col-timetravel.jpg" alt="" width="640" height="640" loading="lazy"></span><span class="coll-go">SHOP <i class="plus" aria-hidden="true">+</i></span></a></li>
+      </ol>
+    </section>
+
+    <section class="look" id="lookbook" aria-labelledby="look-title">
+      <div class="sec-head" data-reveal>
+        <div><p class="label">04 / THE LOOKBOOK</p><h2 id="look-title">Three looks from the turbine hall</h2></div>
+      </div>
+      <figure class="look-wide" data-reveal><div class="look-pan"><img decoding="async" src="assets/img/spread-wide.jpg" alt="Three models in a turbine hall, in blue and violet harlequin prints and a plum pinstriped suit" width="2400" height="1091" loading="lazy"></div><figcaption>CAMPAIGN, TURBINE HALL</figcaption></figure>
+      <div class="look-shop">
+        <figure class="look-photo" data-reveal><img decoding="async" src="assets/img/look.jpg" alt="Model in a magenta denim jumpsuit in front of a white turbine" width="1500" height="1250" loading="lazy">
+          <a class="look-card" href="https://sifbenedicta.com/products/denim-jumpsuit"><span class="look-tag">SHOP THE LOOK</span><b>Denim Jumpsuit, pink</b><i>€549</i><span class="look-go">VIEW <i class="plus" aria-hidden="true">+</i></span></a>
+        </figure>
+        <div class="look-text" data-reveal style="--i:1"><p class="label">THE PINK JUMPSUIT</p><p class="look-quote">A modern muse who effortlessly blends timeless glamour with avant-garde flair.</p><p class="look-by">From the brand's own description</p></div>
+      </div>
+    </section>
+
+    <section class="about" id="about" data-tone="dark" aria-labelledby="about-title">
+      <figure class="about-photo" data-reveal><img decoding="async" src="assets/img/about.jpg" alt="Model in a violet harlequin silk dress and scrunchie beside a white turbine" width="2200" height="1467" loading="lazy"></figure>
+      <div class="about-copy">
+        <p class="label" data-reveal>05 / ABOUT <i class="plus" aria-hidden="true">+</i></p>
+        <h2 id="about-title" data-reveal><span class="rise"><span>A fusion of international</span></span> <span class="rise"><span>experience and Icelandic</span></span> <span class="rise"><span>sensibilities</span></span></h2>
+        <p data-reveal style="--i:1">The talented Icelandic designer Halldóra Sif brings forth a fusion of international experience and Icelandic sensibilities. From her intern days at Olympia-Le-Tan in the heart of Paris, to her stint with the iconic Alexander McQueen in the vibrant streets of London, her journey has been a whirlwind of creativity and exploration.</p>
+        <p data-reveal style="--i:2">Benedicta’s Room, the debut collection, draws inspiration from the vibrant colors and bold forms of 60’s pop art, as well as the elegance of Art Deco and Art Nouveau. Benedicta’s Sketchbook, the second collection, is inspired by the intricate designs of Art Deco jewelry and wallpaper, vintage book covers, a fantasy of 20’s glamour and romantic 70’s chic.</p>
+        <dl class="facts" data-reveal style="--i:3"><div><dt>Designer</dt><dd>Halldóra Sif</dd></div><div><dt>Production</dt><dd>Italy and Lebanon</dd></div><div><dt>Collections</dt><dd>Room, Sketchbook, Diamond, Timetravel</dd></div></dl>
+      </div>
+    </section>
+
+    <section class="service" id="service" aria-labelledby="service-title">
+      <div class="sec-head" data-reveal>
+        <div><p class="label">06 / DELIVERY, RETURNS AND PAYMENT</p><h2 id="service-title">Everything before you order</h2></div>
+        <a class="sec-link" href="https://sifbenedicta.com/pages/terms-and-conditions-of-sale">FULL TERMS <i class="plus" aria-hidden="true">+</i></a>
+      </div>
+      <div class="service-grid">
+        <div data-reveal style="--i:0"><h3>Delivery</h3><p>Free home delivery on all orders (Frí heimsending af öllum pöntunum). You get an e-mail as soon as your order ships.</p></div>
+        <div data-reveal style="--i:1"><h3>Returns</h3><p>You can return within 14 days of delivery. Ask customer service or use the online form for a return code, then book a DHL pickup with the return label. Refunds include delivery costs and are free of charge.</p></div>
+        <div data-reveal style="--i:2"><h3>Payment</h3><p>Pay by card or PayPal. Card payments are processed by Borgun. All prices are in euros and include VAT. <a href="https://sifbenedicta.com/collections/gjafabref">Gift cards <i class="plus" aria-hidden="true">+</i></a></p></div>
+      </div>
+    </section>
+
+    <section class="list" id="list" data-tone="dark" aria-labelledby="list-title">
+      <div class="list-in">
+        <div data-reveal><p class="label">07 / STAY IN TOUCH</p><h2 id="list-title">Sign up for updates</h2><p class="list-note">New pieces and collections, straight from the studio.</p></div>
+        <form class="list-form" id="list-form" data-reveal style="--i:1" novalidate>
+          <label for="list-email">E-mail address</label>
+          <div class="list-row"><input id="list-email" name="email" type="email" inputmode="email" autocomplete="email" spellcheck="false" placeholder="name@example.com" required><button class="btn" type="submit">SIGN UP</button></div>
+          <p class="list-status" id="list-status" role="status" aria-live="polite">This is a preview: nothing is sent or stored.</p>
+        </form>
+      </div>
+    </section>
+
     <section class="visit" id="contact" aria-labelledby="visit-title">
-      <p class="label">CONTACT +</p>
+      <p class="label">08 / CONTACT <i class="plus" aria-hidden="true">+</i></p>
       <h2 id="visit-title" translate="no" class="chars" aria-label="+354 546 1500">+354 546 1500</h2>
-      <div class="visit-grid">
-        <p>Sif&nbsp;Benedicta<br>Designed in Iceland<br>Production in Italy and Lebanon</p>
+      <div class="visit-grid" data-reveal>
+        <p>Sif Benedicta ehf.<br>Registered office<br>Laugavegur 105, 101 Reykjavik</p>
         <p><a href="tel:+3545461500">Tel.&nbsp;+354&nbsp;546&nbsp;1500</a><br><a href="mailto:info@sifbenedicta.com">info@sifbenedicta.com</a><br><a href="mailto:kristinn@sifbenedicta.com">kristinn@sifbenedicta.com</a> (press)</p>
         <p><a href="https://sifbenedicta.com/">The webshop <i class="plus" aria-hidden="true">+</i></a><br><a href="https://www.instagram.com/sifbenedicta/">Instagram <i class="plus" aria-hidden="true">+</i></a><br><a href="https://www.facebook.com/Sif-Benedicta-782066455328014/">Facebook <i class="plus" aria-hidden="true">+</i></a><br><a href="https://www.pinterest.com/sifbenedicta">Pinterest <i class="plus" aria-hidden="true">+</i></a></p>
       </div>
     </section>
   </main>
 
-  <footer class="sbd-footer" id="footer">
+  <footer class="sbd-footer" id="footer" data-tone="dark">
     <div class="foot-grid">
       <div class="foot-brand">
         <svg class="foot-mono" viewBox="0 0 809 875" aria-hidden="true"><use href="#sb-mono"/></svg>
         <p>Bags, clutches, clothes and accessories, designed in Iceland.</p>
       </div>
-      <nav class="foot-col" aria-label="Footer"><h3>INDEX</h3><ul><li><a href="#shop">Selection <i class="plus" aria-hidden="true">+</i></a></li><li><a href="#about">About <i class="plus" aria-hidden="true">+</i></a></li><li><a href="#contact">Contact <i class="plus" aria-hidden="true">+</i></a></li></ul></nav>
+      <nav class="foot-col" aria-label="Footer"><h3>INDEX</h3><ul><li><a href="#shop">Shop <i class="plus" aria-hidden="true">+</i></a></li><li><a href="#collections">Collections <i class="plus" aria-hidden="true">+</i></a></li><li><a href="#lookbook">Lookbook <i class="plus" aria-hidden="true">+</i></a></li><li><a href="#about">About <i class="plus" aria-hidden="true">+</i></a></li><li><a href="#contact">Contact <i class="plus" aria-hidden="true">+</i></a></li></ul></nav>
       <div class="foot-col"><h3>FOLLOW</h3><ul><li><a href="https://www.instagram.com/sifbenedicta/">Instagram <i class="plus" aria-hidden="true">+</i></a></li><li><a href="https://www.facebook.com/Sif-Benedicta-782066455328014/">Facebook <i class="plus" aria-hidden="true">+</i></a></li><li><a href="https://www.pinterest.com/sifbenedicta">Pinterest <i class="plus" aria-hidden="true">+</i></a></li></ul></div>
       <div class="foot-col"><h3>WRITE</h3><ul><li><a href="mailto:info@sifbenedicta.com">info@sifbenedicta.com</a></li><li><a href="tel:+3545461500">+354&nbsp;546&nbsp;1500</a></li><li><a href="https://sifbenedicta.com/">The webshop <i class="plus" aria-hidden="true">+</i></a></li></ul></div>
     </div>
-    <div class="foot-rule" aria-hidden="true"><span class="foot-line" id="foot-line"></span><span class="foot-diamond" id="foot-diamond"></span></div>
-    <a class="foot-word" href="#top" aria-label="Sif Benedicta, back to top"><svg id="foot-word-svg" viewBox="0 0 2108 174" aria-hidden="true"><use href="#sb-word"/></svg></a>
+    <div class="foot-rule" aria-hidden="true"><span class="foot-line"></span><span class="foot-diamond"></span></div>
+    <a class="foot-word" href="#top" aria-label="Sif Benedicta, back to top"><svg viewBox="0 0 2108 174" aria-hidden="true"><use href="#sb-word"/></svg></a>
     <div class="foot-base">
       <span>© Sif&nbsp;Benedicta</span>
       <span class="foot-note">Concept preview, not the live site</span>
+      <button class="motion-toggle" id="motion-toggle" type="button" role="switch" aria-checked="true">Motion: on</button>
       <a class="sndr-credit" href="https://sndrstudio.is">Designed by SNDR Studio</a>
     </div>
   </footer>

@@ -6,8 +6,7 @@ import {DURATION,GEOMETRY,stateAt,progress,clamp,smooth,expoOut,sample,LOGO_TRAC
 // Mobile: the loader plays as a fixed intro; the stage is a stack and only the columns counter-move.
 const $=id=>document.getElementById(id);
 const stage=$('stage'), world=$('world'), hero=$('hero'), loader=$('loader'), pin=$('pin');
-const cue=$('scroll-cue'), cueIn=$('scroll-cue-in');
-const footWordEl=document.querySelector('.foot-word'), footWordSvg=$('foot-word-svg'), footLine=$('foot-line'), footDiamond=$('foot-diamond');
+const cue=$('scroll-cue'), cueIn=$('scroll-cue-in'), cta=$('hero-cta'), ctaIn=$('hero-cta-in');
 const columns=[$('column-one'),$('column-two'),$('column-three')];
 const tracks=[$('track-top'),$('track-middle'),$('track-bottom')];
 const tpl=$('name-copy');
@@ -49,21 +48,15 @@ const r2=n=>Math.round(n*100)/100;
 const tx=(el,x,y=0)=>setTf(el,`translate3d(${r2(x)}px,${r2(y)}px,0)`);
 const op=(el,n)=>{const v=String(Math.round(n*1000)/1000);if(el._op!==v){el._op=v;el.style.opacity=v;}};
 
-// Masked line rises for the lower sections: wrap each .rise's text once.
-const rises=[...document.querySelectorAll('.rise')].map(el=>{const s=document.createElement('span');s.textContent=el.textContent;el.textContent='';el.append(s);return s;});
-const aboutImg=document.querySelector('.about-photo img'), aboutFig=aboutImg.parentElement;
 const ease3=p=>1-Math.pow(1-p,3);
 // Per-character masks: SINCE on the stage, Skólavörðustígur 3 in Visit. Each letter rises out of its own line.
 function splitChars(el){const txt=el.textContent;el.textContent='';return [...txt].map(c=>{const s=document.createElement('span');s.className='ch';s.setAttribute('aria-hidden','true');s.textContent=c===' '?'\u00a0':c;el.append(s);return s;});}
 const sinceEl=$('since'), sinceChars=splitChars(sinceEl);
-const visitEl=document.querySelector('.chars'), visitChars=splitChars(visitEl);
-// Curtains (shop cards + About photo): a band lifts off, the photograph settles from a slight zoom.
-const curtains=[...document.querySelectorAll('[data-curtain]')].map(el=>({el,cur:el.querySelector('.curtain'),img:el.querySelector('img'),idx:el.closest('.pieces')?[...el.parentElement.children].indexOf(el):-1}));
 const landImg=document.querySelector('.landscape-frame img'), portImg=$('portrait-img');
-const seen01=(top,band)=>clamp((vh*.96-top)/(vh*band));
 // Desktop header: name slot + current-section marker. Elements are cached; writes happen only on change.
 const head=$('sbd-head'), headName=$('head-name'), headLinks=[...head.querySelectorAll('[data-sec]')];
 const sections=headLinks.map(a=>$(a.dataset.sec));
+const toneEls=[...document.querySelectorAll('main>section[id], .sbd-footer')].filter(el=>el.id!=='pin');
 let headCurrent=null, headH=60;const headLink=head.querySelector('.head-name');
 
 // Loader geometry: every repeated copy is the logo itself (monogram + wordmark) at the lockup's exact size, and the middle track is
@@ -110,13 +103,11 @@ function drawDesktop(time){
   tx($('rail'),-(1-s.rail)*GEOMETRY.rail*w);op($('rail'),s.rail);
   tx($('collection-title'),(1-smooth(progress(time,2.58,3.48)))*.56*w);
   tx($('year'),-(1-smooth(progress(time,2.64,3.56)))*.325*w);
-  tx($('portrait-copy'),-(time*.065*w)%(.74*w));
   // The spread's photograph settles as the panel arrives; the tall ring rises into its frame a beat later.
   const k=smooth(progress(s.pan,.62,1.121)), k2=smooth(progress(s.pan,.82,1.121));
   setTf(landImg,`translate3d(${(1-k)*-5}%,0,0) scale(${1.2-.2*k})`);
   setTf(portImg,`translate3d(0,${(1-k2)*7}%,0) scale(${1.28-.28*k2})`);
   sinceChars.forEach((c,i)=>{const e=ease3(progress(time,2.7+i*.07,3.45+i*.07));setTf(c,`translate3d(0,${(1-e)*105}%,0)`);});
-  tx($('shop-copy'),-(time*.019*w)%(.23*w));
   tx($('black-wipe'),0,time>=6.8?0:(1-s.wipe)*h*1.01);
   $('black-wipe').style.visibility=s.galleryEntrance?'hidden':'visible';
   drawLoader(time,s);
@@ -138,7 +129,7 @@ function drawDesktop(time){
   op($('hero-nav'),s.heroUI);[...$('hero-footer').children].forEach(ch=>op(ch,ch.tagName==='P'?1:s.heroUI));
   const hi=s.pan>.35, ci=!(s.pan>.9&&time<5.6);if(hero.inert!==hi)hero.inert=hi;const col=$('collection');if(col.inert!==ci)col.inert=ci;
 }
-function drawHead(secRects,pinEnd){
+function drawHead(secRects,pinEnd,toneRects){
   const s=stateAt(t), inPin=scrollY<pinEnd+2;
   // Arrives with the hero after the loader; constant from then on.
   op(head,mode==='intro'||mode==='hold'?(t>=10.82?s.heroUI:0):1);
@@ -150,28 +141,18 @@ function drawHead(secRects,pinEnd){
   // Only in normal scrolling: during the intro the clock runs 6.8–12.2, which is NOT the end of the pin.
   const bar=mode==='scroll'&&(!inPin||t>=6.6), hb=headH;
   if(head.classList.contains('is-bar')!==bar)head.classList.toggle('is-bar',bar);
-  let light=false;if(bar)secRects.forEach((r,i)=>{if(r.top<=hb&&r.bottom>hb)light=sections[i].id!=='about';});
+  let light=false;if(bar)toneRects.forEach((r,i)=>{if(r.top<=hb&&r.bottom>hb)light=!toneEls[i].matches('[data-tone="dark"]');});
   if(head.classList.contains('tone-light')!==light)head.classList.toggle('tone-light',light);
   // Current section = the one crossing 45% of the viewport.
   let cur=null;secRects.forEach((r,i)=>{if(r.top<=vh*.45&&r.bottom>vh*.45)cur=headLinks[i];});
   if(cur!==headCurrent){headCurrent?.removeAttribute('aria-current');cur?.setAttribute('aria-current','location');headCurrent=cur;}
 }
-function drawMobile(time,galleryRect,mob){
+function drawMobile(time){
+  // Phones: only the one-time intro is clock-driven. Columns, marquees and reveals are CSS or IntersectionObserver, never scroll-linked.
   if(mode==='intro'||mode==='hold'){const s=stateAt(time);drawLoader(time,s);loader.style.display='block';}
   op(loader,smooth(loaderFade));
   // iOS: a hidden-but-present fixed loader can keep tinting Safari's chrome; remove it once the intro is over.
   if(loaderFade<=0&&mode!=='intro'&&loader.isConnected)loader.remove();
-  // Counter-moving columns tied to the gallery's position in the viewport (reversible, no duration).
-  const p=clamp((vh-galleryRect.top)/(vh+galleryRect.height));
-  const amp=galleryRect.height*.28;
-  tx(columns[0],0,-amp*(1-p));tx(columns[1],0,-amp*p);tx(columns[2],0,-amp*.75*(1-p));
-  const pw=innerWidth;
-  tx($('portrait-copy'),-(scrollY*.35)%(pw*1.4));
-  tx($('shop-copy'),-(scrollY*.12)%(pw*.9));
-  const k=ease3(seen01(mob.land,.6)), k2=ease3(seen01(mob.port,.6)), ks=seen01(mob.since,.3);
-  setTf(landImg,`scale(${1.2-.2*k})`);
-  setTf(portImg,`translate3d(0,${(1-k2)*7}%,0) scale(${1.28-.28*k2})`);
-  sinceChars.forEach((c,i)=>{const e=ease3(clamp(ks*1.5-i*.08));setTf(c,`translate3d(0,${(1-e)*105}%,0)`);});
 }
 function tick(now){
   raf=0;
@@ -184,14 +165,8 @@ function tick(now){
   }
   // ---- reads (all geometry before any write) ----
   const pinTop=pin.offsetTop, pinRange=Math.max(1,pin.offsetHeight-vh);
-  const riseTops=rises.map(r=>r.parentElement.getBoundingClientRect().top);
-  const aboutRect=aboutFig.getBoundingClientRect();
-  const curTops=curtains.map(c=>c.el.getBoundingClientRect().top);
-  const visitTop=visitEl.getBoundingClientRect().top;
-  const footR=footWordEl.getBoundingClientRect(), footTop=footR.top, footH=Math.max(footR.height,1);
   const secRects=desktop?sections.map(el=>el.getBoundingClientRect()):null;
-  const mob=desktop?null:{land:landImg.parentElement.getBoundingClientRect().top,port:portImg.parentElement.getBoundingClientRect().top,since:sinceEl.getBoundingClientRect().top};
-  const galleryRect=$('gallery').getBoundingClientRect();
+  const toneRects=desktop?toneEls.map(el=>el.getBoundingClientRect()):null;
   // ---- clock ----
   let busy=false;
   if(mode==='intro'){
@@ -213,34 +188,22 @@ function tick(now){
     if(reduced||lenis||Math.abs(gap)<.0005)t=target;else{t+=gap*(1-Math.exp(-dt*18));busy=true;}
   }
   // ---- writes ----
-  if(desktop)drawDesktop(t);else drawMobile(t,galleryRect,mob);
-  rises.forEach((s,i)=>{const p=reduced?1:clamp((vh*.94-riseTops[i])/(vh*.22));setTf(s,`translate3d(0,${(1-p)*110}%,0)`);});
-  if(desktop)drawHead(secRects,pinTop+pin.offsetHeight-vh);
-  const cols=desktop?4:2, ap=clamp((vh-aboutRect.top)/(vh+aboutRect.height));
-  curtains.forEach((c,i)=>{
-    // Cards in a row lift left to right (one column = 12% of the band later); all tied to position, so it reverses.
-    const raw=(vh*.96-curTops[i])/(vh*(c.idx<0?.6:.5))-(c.idx<0?0:(c.idx%cols)*.12), e=reduced?1:ease3(clamp(raw)); // stagger subtracted BEFORE the clamp, so every column reaches 1 (a card stuck at 0.88 kept an inline scale that blocked the CSS hover)
-    setTf(c.cur,`scaleY(${1-e})`);
-    if(c.el===aboutFig)setTf(c.img,reduced?'none':`translate3d(0,${(ap-.5)*-6}%,0) scale(${1.16-.16*e})`);
-    else setTf(c.img,e>=1?'':`scale(${1.14-.14*e})`);
-  });
-  const vt=seen01(visitTop,.45);
-  visitChars.forEach((c,i)=>{const e=reduced?1:ease3(clamp(vt*1.6-i*.035));setTf(c,`translate3d(0,${(1-e)*110}%,0)`);});
-  // Scroll cue: arrives once the reveal is over (mode 'scroll'; on phones once the intro has faded), fades out by scroll position (reversible, back at the top).
+  if(desktop)drawDesktop(t);else drawMobile(t);
+  if(desktop)drawHead(secRects,pinTop+pin.offsetHeight-vh,toneRects);
+  // Scroll cue and hero actions arrive once the reveal is over. Desktop: opacity tied to the pin (reversible). Phones: a plain class on first scroll, no per-frame work.
   {const on=mode==='scroll'&&(desktop||loaderFade<=.05);
-   if(cueIn._on!==on){cueIn._on=on;cueIn.classList.toggle('is-on',on);}
-   op(cue,1-clamp(desktop?(scrollY-pinTop)/(pinRange*.035):scrollY/90));}
-  // Signature footer: hairline draws left to right, the wordmark rises out of its mask, the diamond arrives last. Position-tied, so it reverses.
-  {const fe=reduced?1:ease3(clamp((vh-footTop)/(footH*.85)));
-   setTf(footWordSvg,`translate3d(0,${r2((1-fe)*108)}%,0)`);setTf(footLine,`scaleX(${Math.round(fe*1000)/1000})`);op(footDiamond,clamp((fe-.55)/.45));}
+   if(cueIn._on!==on){cueIn._on=on;cueIn.classList.toggle('is-on',on);ctaIn.classList.toggle('is-on',on);}
+   if(desktop){const f=1-clamp((scrollY-pinTop)/(pinRange*.035));op(cue,f);op(cta,f);}}
   if(lenis&&lenis.isScrolling)busy=true;
   // Lenis emits 'scroll' inside lenis.raf → paint() may already have queued the next frame: never queue two.
   if(busy&&!raf)raf=requestAnimationFrame(tick);
 }
 function paint(){if(!raf)raf=requestAnimationFrame(tick);}
 function hurry(){if(mode==='intro')introSpeed=3.5;}
-addEventListener('scroll',()=>{hurry();paint();},{passive:true});
-addEventListener('wheel',()=>{hurry();paint();},{passive:true});addEventListener('touchstart',hurry,{passive:true});addEventListener('keydown',hurry);addEventListener('pointerdown',hurry,{passive:true});
+let gone=false;
+const goneCheck=()=>{const g=scrollY>60;if(g!==gone){gone=g;cue.classList.toggle('is-gone',g);cta.classList.toggle('is-gone',g);}};
+addEventListener('scroll',()=>{hurry();if(desktop||mode==='intro')paint();else goneCheck();},{passive:true});
+addEventListener('wheel',()=>{hurry();if(desktop)paint();},{passive:true});addEventListener('touchstart',hurry,{passive:true});addEventListener('keydown',hurry);addEventListener('pointerdown',hurry,{passive:true});
 addEventListener('resize',()=>{const was=desktop;desktop=desktopQuery.matches;measure();if(was!==desktop){loaderFade=desktop?1:0;loader.style.opacity='';setupLenis();}paint();});
 new ResizeObserver(()=>{measure();paint();}).observe(stage);
 document.addEventListener('visibilitychange',()=>{last=0;if(!document.hidden)paint();});
